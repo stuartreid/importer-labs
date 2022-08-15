@@ -1,0 +1,12 @@
+variables:
+  PLAN: plan.cache
+  PLAN_JSON: plan.json
+
+plan:
+  stage: build
+  script:
+    - terraform plan -out=$PLAN
+    - terraform show --json $PLAN | convert_report > $PLAN_JSON
+  artifacts:
+    reports:
+      terraform: $PLAN_JSON
